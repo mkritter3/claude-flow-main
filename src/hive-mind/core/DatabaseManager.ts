@@ -581,10 +581,10 @@ For persistent storage options, see: https://github.com/ruvnet/claude-code-flow/
       .prepare(
         `
       DELETE FROM memory 
-      WHERE metadata LIKE '%"swarmId":"${swarmId}"%'
+      WHERE metadata LIKE ?
     `,
       )
-      .run();
+      .run(`%"swarmId":"${swarmId}"%`);
   }
 
   async deleteOldEntries(namespace: string, ttl: number): Promise<void> {
