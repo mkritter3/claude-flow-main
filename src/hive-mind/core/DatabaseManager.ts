@@ -39,6 +39,13 @@ export class DatabaseManager extends EventEmitter {
   private constructor() {
     super();
     this.statements = new Map();
+    this.compressionManager = new CompressionManager({
+      algorithm: 'auto',
+      level: 6,
+      threshold: 1024,
+      enableStats: true,
+      adaptiveSelection: true
+    });
   }
 
   /**
