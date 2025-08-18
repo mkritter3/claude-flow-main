@@ -34,6 +34,7 @@ export class DatabaseManager extends EventEmitter {
   private dbPath: string;
   private isInMemory: boolean = false;
   private memoryStore: any = null;
+  private compressionManager: CompressionManager;
 
   private constructor() {
     super();
