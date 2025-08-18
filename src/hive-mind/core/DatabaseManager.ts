@@ -804,7 +804,7 @@ For persistent storage options, see: https://github.com/ruvnet/claude-code-flow/
       SELECT * FROM memory 
       WHERE namespace = 'queen-decisions' 
       AND key LIKE 'decision/%'
-      AND metadata LIKE '%"swarmId":"${swarmId}"%'
+      AND metadata LIKE ?
       ORDER BY created_at DESC
       LIMIT 100
     `,
