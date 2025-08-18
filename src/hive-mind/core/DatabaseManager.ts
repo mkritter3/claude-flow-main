@@ -9,6 +9,7 @@ import path from 'path';
 import fs from 'fs/promises';
 import { EventEmitter } from 'events';
 import { fileURLToPath } from 'url';
+import { CompressionManager } from '../../compression/CompressionManager.js';
 
 // ES module compatibility - define __dirname
 const __filename = fileURLToPath(import.meta.url);
