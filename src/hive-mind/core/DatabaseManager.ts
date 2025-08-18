@@ -809,7 +809,7 @@ For persistent storage options, see: https://github.com/ruvnet/claude-code-flow/
       LIMIT 100
     `,
       )
-      .all();
+      .all(`%"swarmId":"${swarmId}"%`);
   }
 
   // Utility operations
