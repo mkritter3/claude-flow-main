@@ -1,0 +1,1 @@
+{"tag": "checkpoint-20250818-103134", "file": "/Users/mkr/local-coding/Systems/projects/claude-flow-main/.gitignore", "timestamp": "2025-08-18T17:31:34Z", "type": "post-edit", "branch": "master", "diff_summary": " .claude/checkpoints/task-1755538282.json | 1 +  .gitignore                               | 3 ++-  2 files changed, 3 insertions(+), 1 deletion(-) "}
