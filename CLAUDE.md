@@ -1,5 +1,20 @@
 # Claude Code Configuration - SPARC Development Environment
 
+## 🚀 REVOLUTIONARY THINKING DIRECTIVE
+
+**CRITICAL**: Always verify ALL solutions and architectures against:
+- **Official Anthropic Documentation**: `/Users/mkr/local-coding/Systems/projects/claude-flow-main/mkr-docs/anthropic-official-documents/claude-infrastructure-complete`
+- **Approach**: Think theoretically about what's POSSIBLE, not just what exists
+- **Mindset**: Be optimistically critical - push boundaries while ensuring theoretical soundness
+- **Goal**: We're building for the future - revolutionize, don't just iterate
+
+### 🧠 Ultra-Thinking Protocol:
+1. **Verify**: Cross-reference with official Anthropic capabilities
+2. **Theorize**: Explore what's theoretically possible with the architecture
+3. **Innovate**: Propose revolutionary solutions that push boundaries
+4. **Validate**: Ensure theoretical soundness against documentation
+5. **Revolutionize**: Think beyond current implementations to future possibilities
+
 ## 🚨 CRITICAL: Concurrent Execution Rules
 
 **ABSOLUTE RULE**: ALL operations MUST be concurrent/parallel in ONE message:
