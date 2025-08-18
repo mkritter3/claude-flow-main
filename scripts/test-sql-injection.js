@@ -135,9 +135,9 @@ async function runTests() {
     console.log('-----------------------------------------');
     
     const dangerousQueries = [
-      `SELECT * FROM swarms WHERE id = '${maliciousInputs[0]}'`,
-      `DELETE FROM memory WHERE key = '${maliciousInputs[1]}'`,
-      `INSERT INTO swarms (id, metadata) VALUES ('${maliciousInputs[2]}', 'data')`
+      `SELECT * FROM swarms WHERE id = '\${maliciousInputs[0]}'`,
+      `DELETE FROM memory WHERE key = '\${maliciousInputs[1]}'`,
+      `INSERT INTO swarms (id, metadata) VALUES ('\${maliciousInputs[2]}', 'data')`
     ];
     
     let blockedInterpolation = 0;
