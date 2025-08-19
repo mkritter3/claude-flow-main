@@ -440,7 +440,7 @@ export class AccessDecisionEngine {
     if (analysis.threat_modeling) {
       const currentThreats = await this.getCurrentThreatIntelligence();
       analysis.threat_modeling.threat_actors = [
-        ...analysis.threat_modeling.threat_actors,
+        ...(analysis.threat_modeling.threat_actors || []),
         ...currentThreats.active_threats
       ];
     }
