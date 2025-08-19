@@ -412,8 +412,8 @@ export class SelfOptimizingMetricsEngine {
         // Apply the optimization
         await this.applyOptimization(optimization);
 
-        // Wait for optimization to take effect
-        await this.sleep(5000);
+        // Wait for optimization to take effect (shorter in test mode)
+        await this.sleep(process.env.NODE_ENV === 'test' ? 100 : 5000);
 
         // Measure impact
         const postMetrics = await this.collectRawMetrics();
