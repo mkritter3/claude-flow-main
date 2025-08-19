@@ -104,6 +104,19 @@ const mockThinkingEngine: ExtendedThinkingEngine = {
       threat_score = Math.max(threat_score, 0.8);
     }
 
+    // Check for subquery injection patterns
+    if (queryToAnalyze.includes('select count(*) from') && queryToAnalyze.includes('admin')) {
+      vulnerabilities.push({
+        type: 'sql_injection',
+        severity: 'medium',
+        location: 'subquery',
+        description: 'Subquery injection for privilege escalation',
+        exploit_potential: 0.6,
+        mitigation: 'Remove unauthorized subqueries'
+      });
+      threat_score = Math.max(threat_score, 0.6);
+    }
+
     return {
       vulnerabilities,
       threat_score,
