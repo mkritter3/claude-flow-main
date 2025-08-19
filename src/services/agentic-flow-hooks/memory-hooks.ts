@@ -483,10 +483,27 @@ async function compressValue(value: any): Promise<any> {
 }
 
 async function decompressValue(value: any): Promise<any> {
-  // Implement decompression (placeholder)
-  if (value.compressed) {
-    return JSON.parse(value.data);
+  if (value.compressed && value.algorithm === 'zstd') {
+    try {
+      // Use real CompressionService for decompression
+      const { CompressionService } = await import('../compression/CompressionService.js');
+      const compressionService = new CompressionService();
+      return await compressionService.decompress(value);
+    } catch (error) {
+      console.error('Decompression failed:', error);
+      return value;
+    }
   }
+  
+  // Handle legacy compressed data or non-compressed data
+  if (value.compressed && typeof value.data === 'string') {
+    try {
+      return JSON.parse(value.data);
+    } catch {
+      return value.data;
+    }
+  }
+  
   return value;
 }
 
