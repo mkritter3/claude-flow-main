@@ -19,7 +19,7 @@ export interface CompressedData {
 }
 
 export class CompressionService {
-  private zstd: any;
+  private zstd: Zstd | null = null;
   private initialized = false;
   
   async initialize() {
