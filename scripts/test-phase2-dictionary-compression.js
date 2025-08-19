@@ -1,7 +1,8 @@
 // Phase 2: AI-Enhanced Dictionary Compression Validation
 // Following the exact specification from compression roadmap Phase 2
 
-const { Zstd } = require('@hpcc-js/wasm-zstd');
+import { Zstd } from '@hpcc-js/wasm-zstd';
+import crypto from 'crypto';
 
 // Mock implementations for testing
 class MockPatternAnalyzer {
