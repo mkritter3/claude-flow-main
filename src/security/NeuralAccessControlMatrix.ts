@@ -558,7 +558,7 @@ export class NeuralAccessControlMatrix {
     let adjustmentFactor = 1.0;
 
     // Adjust based on risk assessment
-    const riskScore = analysis.risk_assessment.immediate_risk;
+    const riskScore = analysis?.risk_assessment?.immediate_risk || 0.2; // Default low risk
     if (riskScore > 0.8) adjustmentFactor *= 0.25; // 15 minutes for high risk
     else if (riskScore > 0.6) adjustmentFactor *= 0.5; // 30 minutes for medium-high risk
     else if (riskScore > 0.4) adjustmentFactor *= 0.75; // 45 minutes for medium risk
