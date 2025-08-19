@@ -141,7 +141,8 @@ const mockThinkingEngine: ExtendedThinkingEngine = {
       .replace(/DELETE\s+FROM.*/gi, '')
       .replace(/;\s*(DROP|DELETE|ALTER).*/gi, '')
       .replace(/SLEEP\s*\([^)]*\)/gi, '')
-      .replace(/WAITFOR\s+DELAY.*/gi, '');
+      .replace(/WAITFOR\s+DELAY.*/gi, '')
+      .replace(/AND\s+\(SELECT\s+COUNT\(\*\)\s+FROM\s+admin_users\)\s*>\s*0/gi, '');
 
     return {
       verified_query: safeQuery.trim() + ' -- Quantum secured',
