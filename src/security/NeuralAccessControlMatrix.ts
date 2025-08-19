@@ -565,7 +565,7 @@ export class NeuralAccessControlMatrix {
     else if (riskScore < 0.2) adjustmentFactor *= 2.0; // 2 hours for low risk
 
     // Adjust based on user behavior trust score
-    const trustScore = analysis.behavioral_analysis.trust_score;
+    const trustScore = analysis?.behavioral_analysis?.trust_score || 0.7; // Default medium trust
     if (trustScore > 0.9) adjustmentFactor *= 1.5;
     else if (trustScore < 0.3) adjustmentFactor *= 0.5;
 
