@@ -470,7 +470,9 @@ Vulnerabilities Found: ${JSON.stringify(analysis.vulnerabilities)}`,
       { pattern: /EXEC\s*\(/i, reason: 'Command execution attempt' },
       { pattern: /xp_cmdshell/i, reason: 'System command injection' },
       { pattern: /UNION\s+SELECT.*password/i, reason: 'Password extraction attempt' },
-      { pattern: /OR\s+1\s*=\s*1/i, reason: 'Authentication bypass attempt' }
+      { pattern: /OR\s+1\s*=\s*1/i, reason: 'Authentication bypass attempt' },
+      { pattern: /SLEEP\s*\(/i, reason: 'Time-based injection attempt' },
+      { pattern: /WAITFOR\s+DELAY/i, reason: 'Time-based injection attempt' }
     ];
 
     for (const threat of immediateThreats) {
