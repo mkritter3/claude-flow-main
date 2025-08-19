@@ -27,7 +27,7 @@ describe('Solution 4: Real-time Performance Optimization System', () => {
       requestValidation: jest.fn()
     };
 
-    metricsEngine = new SelfOptimizingMetricsEngine(mockThinking, mockMcp);
+    metricsEngine = new SelfOptimizingMetricsEngine(mockThinking, mockMcp, true);
     performanceAnalyzer = new PerformanceAnalyzer();
     
     const testConfig: OptimizationConfiguration = {
