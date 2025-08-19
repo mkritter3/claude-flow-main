@@ -1,12 +1,15 @@
-// Phase 1: Production-Ready Compression (Days 1-3)
-// Following the exact specification from compression roadmap
+// Enhanced CompressionService with Phase 3 Multi-Algorithm Support
+// Integrating all three phases: Zstd, Dictionary, and Multi-Algorithm
 import { Zstd } from '@hpcc-js/wasm-zstd';
 import { createHash } from 'crypto';
+import { MultiAlgorithmEngine } from './MultiAlgorithmEngine.js';
+import { QuantumInspiredAlgorithm } from './QuantumInspiredAlgorithm.js';
+import { CompressionLearner } from './CompressionLearner.js';
 
 export interface CompressedData {
   compressed: boolean;
   algorithm: string;
-  level: number;
+  level?: number;
   data: string;
   originalSize: number;
   compressedSize: number;
@@ -17,12 +20,17 @@ export interface CompressedData {
     checksum: string;
     dictionary?: string;
     dictionary_version?: string;
+    superposition?: number;
+    entanglement?: any;
   };
 }
 
 export class CompressionService {
   private zstd: Zstd | null = null;
   private initialized = false;
+  private multiEngine: MultiAlgorithmEngine;
+  private learner: CompressionLearner;
+  private compressionMode: 'simple' | 'multi-algorithm' = 'multi-algorithm';
   
   async initialize() {
     if (!this.initialized) {
