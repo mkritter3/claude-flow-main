@@ -259,7 +259,7 @@ export class QuantumEncryption {
     const ciphertextBytes = Buffer.from(ciphertext, 'base64');
     
     // Reverse quantum-resistant transformations
-    const quantumNoise = this.generateQuantumNoise(ciphertextBytes.length);
+    const quantumNoise = this.generateQuantumNoise(ciphertextBytes.length, key.quantum_state);
     const decryptedBytes = ciphertextBytes.map((byte, index) => 
       byte ^ keyBytes[index % keyBytes.length] ^ quantumNoise[index]
     );
