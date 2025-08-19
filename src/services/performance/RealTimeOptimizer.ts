@@ -77,7 +77,8 @@ export class RealTimeOptimizer {
   constructor(
     thinking?: ExtendedThinkingEngine,
     mcp?: MCPConnector,
-    config?: Partial<OptimizationConfiguration>
+    config?: Partial<OptimizationConfiguration>,
+    testMode: boolean = false
   ) {
     this.config = {
       enabled: true,
@@ -94,7 +95,7 @@ export class RealTimeOptimizer {
     this.metricsEngine = new SelfOptimizingMetricsEngine(thinking, mcp, true); // Test mode for metrics engine
     this.performanceAnalyzer = new PerformanceAnalyzer();
 
-    if (process.env.NODE_ENV !== 'test') {
+    if (!testMode && process.env.NODE_ENV !== 'test') {
       this.startOptimizationLoop();
       console.log('🚀 Real-Time Optimizer initialized and active');
     } else {
