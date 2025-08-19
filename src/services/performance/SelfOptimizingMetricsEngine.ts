@@ -166,10 +166,12 @@ export class SelfOptimizingMetricsEngine {
   private max_concurrent_optimizations: number = 3;
   private active_optimizations = new Set<string>();
 
-  constructor(thinking?: ExtendedThinkingEngine, mcp?: MCPConnector) {
+  constructor(thinking?: ExtendedThinkingEngine, mcp?: MCPConnector, testMode: boolean = false) {
     this.thinking = thinking;
     this.mcp = mcp;
-    this.startRealTimeOptimization();
+    if (!testMode) {
+      this.startRealTimeOptimization();
+    }
   }
 
   /**
