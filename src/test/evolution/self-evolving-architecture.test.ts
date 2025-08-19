@@ -2,22 +2,11 @@
 // Comprehensive testing for Solution 3: Self-Evolving Architecture
 // Following revolutionary specification from claude-flow-revolutionary-solutions.md
 
+import { describe, it, expect, beforeEach, jest } from '@jest/globals';
 import { SelfEvolvingArchitecture, EvolutionResult, Mutation, MutationType, RiskLevel } from '../../services/evolution/SelfEvolvingArchitecture.js';
 import { EvolutionEngine, EvolutionConfiguration } from '../../services/evolution/EvolutionEngine.js';
 import { SafetyController } from '../../services/evolution/SafetyController.js';
 import { EvolutionMetrics } from '../../services/evolution/EvolutionMetrics.js';
-
-// Jest globals
-declare global {
-  const jest: typeof import('jest');
-  const describe: jest.Describe;
-  const it: jest.It;
-  const expect: jest.Expect;
-  const beforeEach: jest.Lifecycle;
-  const beforeAll: jest.Lifecycle;
-  const afterEach: jest.Lifecycle;
-  const afterAll: jest.Lifecycle;
-}
 
 describe('Self-Evolving Architecture System', () => {
   let architecture: SelfEvolvingArchitecture;
