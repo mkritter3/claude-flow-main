@@ -635,8 +635,14 @@ export class QuantumTokenGenerator {
   private async encryptTokenWithQuantumAlgorithm(data: Buffer): Promise<Buffer> {
     // In real implementation, would use actual post-quantum encryption
     const key = crypto.randomBytes(32);
-    const cipher = crypto.createCipher('aes-256-gcm', key);
-    return Buffer.concat([cipher.update(data), cipher.final()]);
+    const iv = crypto.randomBytes(16);
+    const cipher = crypto.createCipherGCM('aes-256-gcm', key, iv);
+    
+    const encrypted = cipher.update(data);
+    cipher.final();
+    const authTag = cipher.getAuthTag();
+    
+    return Buffer.concat([iv, authTag, encrypted]);
   }
 
   // Validation helper methods
