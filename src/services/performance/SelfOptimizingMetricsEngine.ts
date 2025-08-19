@@ -711,37 +711,37 @@ export class SelfOptimizingMetricsEngine {
   private async applyCacheOptimization(optimization: Optimization): Promise<void> {
     console.log(`💾 Applying cache optimization: ${optimization.change.description}`);
     // In real implementation, this would modify cache configuration
-    await this.sleep(1000);
+    await this.sleep(process.env.NODE_ENV === 'test' ? 10 : 1000);
   }
 
   private async applyCompressionOptimization(optimization: Optimization): Promise<void> {
     console.log(`🗜️ Applying compression optimization: ${optimization.change.description}`);
     // In real implementation, this would modify compression settings
-    await this.sleep(1000);
+    await this.sleep(process.env.NODE_ENV === 'test' ? 10 : 1000);
   }
 
   private async applyAlgorithmOptimization(optimization: Optimization): Promise<void> {
     console.log(`⚡ Applying algorithm optimization: ${optimization.change.description}`);
     // In real implementation, this would modify algorithmic approaches
-    await this.sleep(1000);
+    await this.sleep(process.env.NODE_ENV === 'test' ? 10 : 1000);
   }
 
   private async applyMemoryOptimization(optimization: Optimization): Promise<void> {
     console.log(`🧠 Applying memory optimization: ${optimization.change.description}`);
     // In real implementation, this would modify memory management
-    await this.sleep(1000);
+    await this.sleep(process.env.NODE_ENV === 'test' ? 10 : 1000);
   }
 
   private async applyNetworkOptimization(optimization: Optimization): Promise<void> {
     console.log(`🌐 Applying network optimization: ${optimization.change.description}`);
     // In real implementation, this would modify network configuration
-    await this.sleep(1000);
+    await this.sleep(process.env.NODE_ENV === 'test' ? 10 : 1000);
   }
 
   private async applyQueryOptimization(optimization: Optimization): Promise<void> {
     console.log(`🔍 Applying query optimization: ${optimization.change.description}`);
     // In real implementation, this would modify query execution
-    await this.sleep(1000);
+    await this.sleep(process.env.NODE_ENV === 'test' ? 10 : 1000);
   }
 
   // Support methods
