@@ -116,7 +116,8 @@ export class QuantumInspiredAlgorithm implements CompressionAlgorithm {
     const frequencies = new Array(256).fill(0);
     
     // Count byte frequencies
-    for (const byte of bytes) {
+    for (let i = 0; i < bytes.length; i++) {
+      const byte = bytes[i];
       frequencies[byte]++;
     }
     
