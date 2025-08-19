@@ -482,11 +482,11 @@ export class MultiAlgorithmEngine {
       }
       
       // Add patterns that repeat more than twice
-      for (const [pattern, count] of seen) {
+      seen.forEach((count, pattern) => {
         if (count > 2) {
           patterns.push(pattern);
         }
-      }
+      });
     }
     
     return patterns.slice(0, 50); // Limit to top 50 patterns
