@@ -465,6 +465,8 @@ Vulnerabilities Found: ${JSON.stringify(analysis.vulnerabilities)}`,
     // Quick pattern matching for obvious threats
     const immediateThreats = [
       { pattern: /;\s*(DROP|ALTER|TRUNCATE)\s+/i, reason: 'DDL injection attempt' },
+      { pattern: /DROP\s+TABLE/i, reason: 'Table deletion attempt' },
+      { pattern: /DELETE\s+FROM.*users/i, reason: 'User data deletion attempt' },
       { pattern: /EXEC\s*\(/i, reason: 'Command execution attempt' },
       { pattern: /xp_cmdshell/i, reason: 'System command injection' },
       { pattern: /UNION\s+SELECT.*password/i, reason: 'Password extraction attempt' },
