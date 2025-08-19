@@ -70,7 +70,12 @@ export class CompressionService {
       throw new Error('Zstd not initialized');
     }
     
-    if (!payload.compressed || payload.algorithm !== 'zstd') {
+    if (!payload.compressed) {
+      return payload;
+    }
+    
+    // Handle both regular zstd and dictionary-based compression
+    if (payload.algorithm !== 'zstd' && payload.algorithm !== 'zstd-dict') {
       return payload;
     }
     
