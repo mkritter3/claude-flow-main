@@ -636,7 +636,7 @@ export class QuantumTokenGenerator {
     // In real implementation, would use actual post-quantum encryption
     const key = crypto.randomBytes(32);
     const iv = crypto.randomBytes(16);
-    const cipher = crypto.createCipher('aes-256-cbc', key);
+    const cipher = crypto.createCipheriv('aes-256-cbc', key, iv);
     
     const encrypted = Buffer.concat([cipher.update(data), cipher.final()]);
     
