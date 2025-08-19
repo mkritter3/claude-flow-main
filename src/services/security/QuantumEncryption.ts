@@ -246,7 +246,7 @@ export class QuantumEncryption {
     const plaintextBytes = new TextEncoder().encode(plaintext);
     
     // Apply quantum-resistant transformations
-    const quantumNoise = this.generateQuantumNoise(plaintextBytes.length);
+    const quantumNoise = this.generateQuantumNoise(plaintextBytes.length, key.quantum_state);
     const encryptedBytes = plaintextBytes.map((byte, index) => 
       byte ^ keyBytes[index % keyBytes.length] ^ quantumNoise[index]
     );
