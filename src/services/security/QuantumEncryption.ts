@@ -437,8 +437,20 @@ export class QuantumEncryption {
     return state.map((qubit: any) => Math.floor((qubit.amplitude + 1) * 127.5));
   }
 
-  private generateQuantumNoise(length: number): number[] {
-    return Array.from({ length }, () => Math.floor(Math.random() * 256));
+  private generateQuantumNoise(length: number, seed?: string): number[] {
+    // Generate deterministic quantum noise based on seed
+    let seedValue = 0;
+    if (seed) {
+      for (let i = 0; i < seed.length; i++) {
+        seedValue += seed.charCodeAt(i);
+      }
+    }
+    
+    return Array.from({ length }, (_, i) => {
+      // Simple deterministic pseudo-random based on seed and index
+      const value = (seedValue + i * 17 + i * i * 7) % 256;
+      return value;
+    });
   }
 
   private generateSuperpositionStates(length: number): string[] {
