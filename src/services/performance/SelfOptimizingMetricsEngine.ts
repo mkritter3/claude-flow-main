@@ -793,13 +793,13 @@ export class SelfOptimizingMetricsEngine {
   private async executeRollbackStep(step: string, optimization: Optimization): Promise<void> {
     console.log(`  Executing rollback step: ${step}`);
     // Implementation would depend on step type
-    await this.sleep(500);
+    await this.sleep(process.env.NODE_ENV === 'test' ? 5 : 500);
   }
 
   private async validateRollback(validation: string, optimization: Optimization): Promise<void> {
     console.log(`  Validating rollback: ${validation}`);
     // Implementation would perform actual validation
-    await this.sleep(500);
+    await this.sleep(process.env.NODE_ENV === 'test' ? 5 : 500);
   }
 
   private createFallbackMetrics(): OptimizedMetrics {
