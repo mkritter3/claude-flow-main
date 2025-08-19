@@ -9,13 +9,28 @@ import { QuantumEncryption } from '../../services/security/QuantumEncryption.js'
 // Mock Extended Thinking Engine for testing
 const mockThinkingEngine: ExtendedThinkingEngine = {
   async analyze(options: any): Promise<any> {
-    // Simulate AI analysis response
-    const query = options.prompt.toLowerCase();
+    // Extract the actual SQL query from the prompt or context
+    const promptText = options.prompt || '';
+    const originalQuery = options.context?.original_query || '';
+    
+    // Look for SQL query patterns in the prompt
+    let queryToAnalyze = originalQuery.toLowerCase();
+    if (!queryToAnalyze && promptText.includes('Query:')) {
+      const queryMatch = promptText.match(/Query:\s*(.+?)(?:\n|Parameters:|$)/);
+      if (queryMatch) {
+        queryToAnalyze = queryMatch[1].toLowerCase();
+      }
+    }
+    
+    if (!queryToAnalyze) {
+      queryToAnalyze = promptText.toLowerCase();
+    }
+
     const vulnerabilities = [];
     let threat_score = 0;
 
     // Simulate threat detection
-    if (query.includes('or 1=1')) {
+    if (queryToAnalyze.includes('or 1=1')) {
       vulnerabilities.push({
         type: 'sql_injection',
         severity: 'high',
@@ -27,7 +42,7 @@ const mockThinkingEngine: ExtendedThinkingEngine = {
       threat_score = 0.9;
     }
 
-    if (query.includes('union select')) {
+    if (queryToAnalyze.includes('union select')) {
       vulnerabilities.push({
         type: 'union_injection',
         severity: 'high',
@@ -39,7 +54,7 @@ const mockThinkingEngine: ExtendedThinkingEngine = {
       threat_score = Math.max(threat_score, 0.8);
     }
 
-    if (query.includes('drop table') || query.includes('delete from')) {
+    if (queryToAnalyze.includes('drop table') || queryToAnalyze.includes('delete from')) {
       vulnerabilities.push({
         type: 'destructive_operation',
         severity: 'critical',
@@ -51,7 +66,7 @@ const mockThinkingEngine: ExtendedThinkingEngine = {
       threat_score = 1.0;
     }
 
-    if (query.includes('sleep(') || query.includes('waitfor delay')) {
+    if (queryToAnalyze.includes('sleep(') || queryToAnalyze.includes('waitfor delay')) {
       vulnerabilities.push({
         type: 'time_based',
         severity: 'high',
@@ -63,20 +78,30 @@ const mockThinkingEngine: ExtendedThinkingEngine = {
       threat_score = Math.max(threat_score, 0.8);
     }
 
-    // Check for complex injection patterns in the actual query context
-    if (options.context?.original_query) {
-      const originalQuery = options.context.original_query.toLowerCase();
-      if (originalQuery.includes('case when') && originalQuery.includes('sleep')) {
-        threat_score = Math.max(threat_score, 0.9);
-        vulnerabilities.push({
-          type: 'time_based',
-          severity: 'high',
-          location: 'conditional_clause',
-          description: 'Complex time-based injection pattern',
-          exploit_potential: 0.9,
-          mitigation: 'Block complex conditional timing attacks'
-        });
-      }
+    // Check for complex injection patterns
+    if (queryToAnalyze.includes('case when') && queryToAnalyze.includes('sleep')) {
+      threat_score = Math.max(threat_score, 0.9);
+      vulnerabilities.push({
+        type: 'time_based',
+        severity: 'high',
+        location: 'conditional_clause',
+        description: 'Complex time-based injection pattern',
+        exploit_potential: 0.9,
+        mitigation: 'Block complex conditional timing attacks'
+      });
+    }
+
+    // Check for information schema attacks
+    if (queryToAnalyze.includes('information_schema')) {
+      vulnerabilities.push({
+        type: 'sql_injection',
+        severity: 'high',
+        location: 'from_clause',
+        description: 'Information schema enumeration attempt',
+        exploit_potential: 0.8,
+        mitigation: 'Block information schema access'
+      });
+      threat_score = Math.max(threat_score, 0.8);
     }
 
     return {
