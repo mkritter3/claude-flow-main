@@ -32,11 +32,15 @@ export class CompressionService {
   async compress(data: any, level: number = 3): Promise<CompressedData> {
     await this.initialize();
     
+    if (!this.zstd) {
+      throw new Error('Zstd not initialized');
+    }
+    
     const input = JSON.stringify(data);
     const inputBuffer = Buffer.from(input, 'utf-8');
     
     const startTime = Date.now();
-    const compressed = await this.zstd.compress(inputBuffer, level);
+    const compressed = this.zstd.compress(new Uint8Array(inputBuffer), level);
     const compressionTime = Date.now() - startTime;
     
     const ratio = compressed.length / inputBuffer.length;
