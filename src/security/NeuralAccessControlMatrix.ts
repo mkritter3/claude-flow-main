@@ -635,7 +635,7 @@ export class NeuralAccessControlMatrix {
         decision_reasoning: `System failure or disabled: ${reason}`,
         alternative_approaches: ['Contact system administrator']
       },
-      adaptive_ttl: 0,
+      adaptive_ttl: 300, // Minimum 5 minutes for denied access
       audit_trail: [],
       reasoning: `Access denied: ${reason}${error ? ` (${error.message})` : ''}`
     };
