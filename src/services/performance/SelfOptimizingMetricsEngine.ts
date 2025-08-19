@@ -355,7 +355,8 @@ export class SelfOptimizingMetricsEngine {
         }
       });
 
-      const specs = optimizationSpecs.optimizations || optimizationSpecs;
+      const specs = Array.isArray(optimizationSpecs) ? optimizationSpecs : 
+                    (optimizationSpecs.optimizations || optimizationSpecs);
       const optimizations = specs.map((spec: any, index: number) => ({
         id: `OPT-${Date.now()}-${index}`,
         type: spec.type || 'algorithm',
