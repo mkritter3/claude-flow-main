@@ -247,6 +247,7 @@ Provide detailed analysis with threat scoring and specific recommendations.`,
         context: {
           database_schema: this.schema,
           query_parameters: params,
+          original_query: query,
           security_context: context,
           threat_model: 'quantum_adversarial',
           strictness_level: this.config.strictness_level,
