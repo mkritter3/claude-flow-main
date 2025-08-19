@@ -100,10 +100,11 @@ export class QuantumInspiredAlgorithm implements CompressionAlgorithm {
     // Convert bytes to binary representation for quantum encoding
     const binary = [];
     
-    for (const byte of bytes) {
+    for (let i = 0; i < bytes.length; i++) {
+      const byte = bytes[i];
       // Convert each byte to 8 bits, normalize to [0, 1]
-      for (let i = 7; i >= 0; i--) {
-        binary.push((byte >> i) & 1);
+      for (let j = 7; j >= 0; j--) {
+        binary.push((byte >> j) & 1);
       }
     }
     
