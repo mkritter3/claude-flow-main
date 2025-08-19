@@ -41,7 +41,7 @@ describe('Solution 4: Real-time Performance Optimization System', () => {
       predictive_optimization: true
     };
 
-    realTimeOptimizer = new RealTimeOptimizer(mockThinking, mockMcp, testConfig);
+    realTimeOptimizer = new RealTimeOptimizer(mockThinking, mockMcp, testConfig, true);
   });
 
   describe('Self-Optimizing Metrics Engine', () => {
