@@ -486,9 +486,13 @@ Vulnerabilities Found: ${JSON.stringify(analysis.vulnerabilities)}`,
     const injectionPatterns = [
       { pattern: /'\s*OR\s+.*=/i, type: 'sql_injection', severity: 'high', weight: 0.8 },
       { pattern: /UNION\s+SELECT/i, type: 'union_injection', severity: 'high', weight: 0.7 },
-      { pattern: /WAITFOR\s+DELAY/i, type: 'time_based', severity: 'medium', weight: 0.6 },
+      { pattern: /WAITFOR\s+DELAY/i, type: 'time_based', severity: 'high', weight: 0.8 },
+      { pattern: /SLEEP\s*\(/i, type: 'time_based', severity: 'high', weight: 0.8 },
       { pattern: /AND\s+1\s*=\s*1/i, type: 'boolean_based', severity: 'medium', weight: 0.5 },
-      { pattern: /OR\s+1\s*=\s*1/i, type: 'boolean_based', severity: 'high', weight: 0.8 }
+      { pattern: /OR\s+1\s*=\s*1/i, type: 'boolean_based', severity: 'high', weight: 0.8 },
+      { pattern: /DROP\s+TABLE/i, type: 'destructive_operation', severity: 'critical', weight: 1.0 },
+      { pattern: /DELETE\s+FROM/i, type: 'destructive_operation', severity: 'critical', weight: 1.0 },
+      { pattern: /;\s*(DROP|DELETE|ALTER)/i, type: 'destructive_operation', severity: 'critical', weight: 1.0 }
     ];
 
     for (const pattern of injectionPatterns) {
