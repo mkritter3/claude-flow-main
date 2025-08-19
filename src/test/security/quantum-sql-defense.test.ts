@@ -92,17 +92,21 @@ const mockThinkingEngine: ExtendedThinkingEngine = {
 
   async generate(options: any): Promise<any> {
     // Simulate safe query generation
-    const originalQuery = options.context?.original_query || 'SELECT * FROM users';
+    const originalInstruction = options.instruction || '';
+    const originalQuery = options.context?.threat_analysis?.query || options.context?.original_query || 'SELECT * FROM users';
     
-    // Generate a safer version
+    // Generate a safer version by removing threats
     const safeQuery = originalQuery
       .replace(/OR\s+1\s*=\s*1/gi, '')
-      .replace(/UNION\s+SELECT/gi, '')
-      .replace(/DROP\s+TABLE/gi, '')
-      .replace(/DELETE\s+FROM/gi, '');
+      .replace(/UNION\s+SELECT.*/gi, '')
+      .replace(/DROP\s+TABLE.*/gi, '')
+      .replace(/DELETE\s+FROM.*/gi, '')
+      .replace(/;\s*(DROP|DELETE|ALTER).*/gi, '')
+      .replace(/SLEEP\s*\([^)]*\)/gi, '')
+      .replace(/WAITFOR\s+DELAY.*/gi, '');
 
     return {
-      verified_query: safeQuery + ' -- Quantum secured',
+      verified_query: safeQuery.trim() + ' -- Quantum secured',
       sanitized_params: [],
       formal_proof: 'Mathematical proof of safety',
       cryptographic_signature: 'quantum_sig_' + Date.now()
