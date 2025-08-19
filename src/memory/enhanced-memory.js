@@ -23,6 +23,21 @@ export class EnhancedMemory extends FallbackMemoryStore {
         console.error(
           `[${new Date().toISOString()}] INFO [enhanced-memory] Applied enhanced schema to SQLite`,
         );
+
+        // Apply strategic intelligence schema
+        try {
+          const strategicSchemaPath = new URL('./strategic-intelligence-schema.sql', import.meta.url);
+          const strategicSchema = readFileSync(strategicSchemaPath, 'utf-8');
+          this.primaryStore.db.exec(strategicSchema);
+          console.error(
+            `[${new Date().toISOString()}] INFO [enhanced-memory] Applied strategic intelligence schema to SQLite`,
+          );
+        } catch (strategicError) {
+          console.error(
+            `[${new Date().toISOString()}] WARN [enhanced-memory] Could not apply strategic intelligence schema:`,
+            strategicError.message,
+          );
+        }
       } catch (error) {
         console.error(
           `[${new Date().toISOString()}] WARN [enhanced-memory] Could not apply enhanced schema:`,
