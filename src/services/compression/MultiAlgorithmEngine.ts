@@ -509,7 +509,7 @@ export class MultiAlgorithmEngine {
   }[]> {
     const results = [];
     
-    for (const [name, algorithm] of this.algorithms) {
+    Array.from(this.algorithms.entries()).forEach(([name, algorithm]) => {
       let totalRatio = 0;
       let totalTime = 0;
       let successfulTests = 0;
