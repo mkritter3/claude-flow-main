@@ -137,7 +137,8 @@ describe('Solution 4: Real-time Performance Optimization System', () => {
           risk_score: 0.2,
           rollback_plan: { steps: ['Reset GC settings'], timeout: 30000 }
         }
-      ]);
+        ]
+      });
 
       const optimizedMetrics = await metricsEngine.collectAndOptimize();
 
