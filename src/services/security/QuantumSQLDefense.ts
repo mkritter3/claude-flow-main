@@ -513,7 +513,7 @@ Vulnerabilities Found: ${JSON.stringify(analysis.vulnerabilities)}`,
       vulnerabilities,
       threat_score: Math.min(1.0, threat_score),
       injection_vectors: vulnerabilities.map(v => v.type),
-      semantic_preserving: true,
+      semantic_preserving: threat_score < 0.5,
       confidence: 0.7,
       recommendations: [
         'Use parameterized queries',
