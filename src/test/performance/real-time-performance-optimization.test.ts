@@ -119,7 +119,8 @@ describe('Solution 4: Real-time Performance Optimization System', () => {
 
     it('should generate and apply AI-driven optimizations', async () => {
       // Mock AI optimization generation
-      mockThinking.generate.mockResolvedValue([
+      mockThinking.generate.mockResolvedValue({
+        optimizations: [
         {
           type: 'cache',
           target: 'application_cache',
