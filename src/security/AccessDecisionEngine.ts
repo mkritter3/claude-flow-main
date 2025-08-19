@@ -468,7 +468,7 @@ export class AccessDecisionEngine {
     if (!decisionValid.valid) {
       analysis.recommendations.primary_decision = 'escalate';
       analysis.recommendations.conditions = [
-        ...analysis.recommendations.conditions,
+        ...(analysis.recommendations.conditions || []),
         `Decision validation failed: ${decisionValid.reason}`
       ];
     }
@@ -476,7 +476,7 @@ export class AccessDecisionEngine {
     // Add dynamic monitoring based on risk factors
     const dynamicMonitoring = this.generateDynamicMonitoring(analysis);
     analysis.recommendations.monitoring_requirements = [
-      ...analysis.recommendations.monitoring_requirements,
+      ...(analysis.recommendations.monitoring_requirements || []),
       ...dynamicMonitoring
     ];
 
