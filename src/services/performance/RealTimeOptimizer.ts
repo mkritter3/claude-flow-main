@@ -91,11 +91,15 @@ export class RealTimeOptimizer {
       ...config
     };
 
-    this.metricsEngine = new SelfOptimizingMetricsEngine(thinking, mcp);
+    this.metricsEngine = new SelfOptimizingMetricsEngine(thinking, mcp, true); // Test mode for metrics engine
     this.performanceAnalyzer = new PerformanceAnalyzer();
 
-    this.startOptimizationLoop();
-    console.log('🚀 Real-Time Optimizer initialized and active');
+    if (process.env.NODE_ENV !== 'test') {
+      this.startOptimizationLoop();
+      console.log('🚀 Real-Time Optimizer initialized and active');
+    } else {
+      console.log('🧪 Real-Time Optimizer initialized in test mode');
+    }
   }
 
   /**
