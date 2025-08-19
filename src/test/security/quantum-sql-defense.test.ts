@@ -15,7 +15,7 @@ const mockThinkingEngine: ExtendedThinkingEngine = {
     let threat_score = 0;
 
     // Simulate threat detection
-    if (query.includes('or 1=1') || query.includes('union select')) {
+    if (query.includes('or 1=1')) {
       vulnerabilities.push({
         type: 'sql_injection',
         severity: 'high',
@@ -25,6 +25,18 @@ const mockThinkingEngine: ExtendedThinkingEngine = {
         mitigation: 'Use parameterized queries'
       });
       threat_score = 0.9;
+    }
+
+    if (query.includes('union select')) {
+      vulnerabilities.push({
+        type: 'union_injection',
+        severity: 'high',
+        location: 'where_clause',
+        description: 'Union injection detected',
+        exploit_potential: 0.8,
+        mitigation: 'Use parameterized queries'
+      });
+      threat_score = Math.max(threat_score, 0.8);
     }
 
     if (query.includes('drop table') || query.includes('delete from')) {
@@ -37,6 +49,34 @@ const mockThinkingEngine: ExtendedThinkingEngine = {
         mitigation: 'Block destructive operations'
       });
       threat_score = 1.0;
+    }
+
+    if (query.includes('sleep(') || query.includes('waitfor delay')) {
+      vulnerabilities.push({
+        type: 'time_based',
+        severity: 'high',
+        location: 'where_clause',
+        description: 'Time-based injection detected',
+        exploit_potential: 0.8,
+        mitigation: 'Use parameterized queries'
+      });
+      threat_score = Math.max(threat_score, 0.8);
+    }
+
+    // Check for complex injection patterns in the actual query context
+    if (options.context?.original_query) {
+      const originalQuery = options.context.original_query.toLowerCase();
+      if (originalQuery.includes('case when') && originalQuery.includes('sleep')) {
+        threat_score = Math.max(threat_score, 0.9);
+        vulnerabilities.push({
+          type: 'time_based',
+          severity: 'high',
+          location: 'conditional_clause',
+          description: 'Complex time-based injection pattern',
+          exploit_potential: 0.9,
+          mitigation: 'Block complex conditional timing attacks'
+        });
+      }
     }
 
     return {
