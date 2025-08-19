@@ -485,6 +485,9 @@ export class AccessDecisionEngine {
 
     // Add confidence indicators
     if (analysis.confidence_score < 0.7) {
+      if (!analysis.recommendations.conditions) {
+        analysis.recommendations.conditions = [];
+      }
       analysis.recommendations.conditions.push('Low confidence decision - additional review recommended');
     }
 
