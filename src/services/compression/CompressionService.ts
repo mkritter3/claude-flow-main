@@ -64,14 +64,18 @@ export class CompressionService {
   async decompress(payload: CompressedData): Promise<any> {
     await this.initialize();
     
+    if (!this.zstd) {
+      throw new Error('Zstd not initialized');
+    }
+    
     if (!payload.compressed || payload.algorithm !== 'zstd') {
       return payload;
     }
     
     const compressed = Buffer.from(payload.data, 'base64');
-    const decompressed = await this.zstd.decompress(compressed);
+    const decompressed = this.zstd.decompress(new Uint8Array(compressed));
     
-    return JSON.parse(decompressed.toString('utf-8'));
+    return JSON.parse(Buffer.from(decompressed).toString('utf-8'));
   }
   
   private calculateChecksum(data: Buffer): string {
