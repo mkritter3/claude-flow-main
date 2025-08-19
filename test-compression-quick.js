@@ -1,7 +1,7 @@
 // Quick validation test for Phase 3 compression components
 // Tests core functionality without full TypeScript compilation
 
-const crypto = require('crypto');
+import crypto from 'crypto';
 
 // Mock compressed data structure
 const createMockCompressedData = (algorithm, ratio = 0.3) => ({
