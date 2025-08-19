@@ -15,6 +15,8 @@ export interface CompressedData {
   metadata: {
     timestamp: number;
     checksum: string;
+    dictionary?: string;
+    dictionary_version?: string;
   };
 }
 
