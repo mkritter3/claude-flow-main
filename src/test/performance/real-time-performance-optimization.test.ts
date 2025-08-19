@@ -474,7 +474,7 @@ describe('Solution 4: Real-time Performance Optimization System', () => {
 
       const result = await realTimeOptimizer.performOptimizationCycle();
 
-      expect(result.recommendations).toContain(expect.stringMatching(/scale|scaling/i));
+      expect(result.recommendations.some(r => /scale|scaling/i.test(r))).toBe(true);
       
       console.log('Predictive optimization and auto-scaling validated');
     });
