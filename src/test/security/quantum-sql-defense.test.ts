@@ -239,7 +239,7 @@ describe('SOL-SEC-001: Quantum SQL Defense System', () => {
     });
 
     it('should rewrite unsafe queries when auto_rewrite is enabled', async () => {
-      const unsafeQuery = "SELECT * FROM users WHERE name = 'test' UNION SELECT password FROM users";
+      const unsafeQuery = "SELECT * FROM users WHERE id = 1 AND (SELECT COUNT(*) FROM admin_users) > 0";
       const params: any[] = [];
 
       const result = await quantumDefense.validateQuery(unsafeQuery, params);
