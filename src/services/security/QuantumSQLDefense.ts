@@ -294,7 +294,8 @@ Original Query: ${query}
 Parameters: ${JSON.stringify(params)}
 Vulnerabilities Found: ${JSON.stringify(analysis.vulnerabilities)}`,
         context: {
-          threat_analysis: analysis,
+          threat_analysis: { ...analysis, query },
+          original_query: query,
           database_schema: this.schema,
           security_requirements: {
             formal_verification: this.config.formal_verification,
