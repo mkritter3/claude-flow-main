@@ -431,7 +431,7 @@ export class AccessDecisionEngine {
     const mlInsights = await this.getMachineLearningInsights(request.context);
     if (mlInsights) {
       analysis.behavioral_analysis.pattern_matches = [
-        ...analysis.behavioral_analysis.pattern_matches,
+        ...(analysis.behavioral_analysis.pattern_matches || []),
         ...mlInsights.patterns
       ];
     }
