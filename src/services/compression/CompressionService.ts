@@ -49,14 +49,14 @@ export class CompressionService {
       compressed: true,
       algorithm: 'zstd',
       level,
-      data: compressed.toString('base64'),
+      data: Buffer.from(compressed).toString('base64'),
       originalSize: inputBuffer.length,
       compressedSize: compressed.length,
       ratio,
       compressionTime,
       metadata: {
         timestamp: Date.now(),
-        checksum: this.calculateChecksum(compressed)
+        checksum: this.calculateChecksum(Buffer.from(compressed))
       }
     };
   }
