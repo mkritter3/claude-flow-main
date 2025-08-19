@@ -464,12 +464,22 @@ function shouldCompress(value: any): boolean {
 }
 
 async function compressValue(value: any): Promise<any> {
-  // Implement compression (placeholder)
-  // In real implementation, use zlib or similar
-  return {
-    compressed: true,
-    data: JSON.stringify(value),
-  };
+  const size = getValueSize(value);
+  
+  // Only compress if > 1KB
+  if (size < 1024) {
+    return { compressed: false, data: value };
+  }
+  
+  try {
+    // Use real CompressionService
+    const { CompressionService } = await import('../compression/CompressionService.js');
+    const compressionService = new CompressionService();
+    return await compressionService.compress(value);
+  } catch (error) {
+    console.error('Compression failed, storing uncompressed:', error);
+    return { compressed: false, data: value };
+  }
 }
 
 async function decompressValue(value: any): Promise<any> {
