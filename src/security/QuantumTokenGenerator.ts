@@ -636,13 +636,11 @@ export class QuantumTokenGenerator {
     // In real implementation, would use actual post-quantum encryption
     const key = crypto.randomBytes(32);
     const iv = crypto.randomBytes(16);
-    const cipher = crypto.createCipherGCM('aes-256-gcm', key, iv);
+    const cipher = crypto.createCipher('aes-256-cbc', key);
     
-    const encrypted = cipher.update(data);
-    cipher.final();
-    const authTag = cipher.getAuthTag();
+    const encrypted = Buffer.concat([cipher.update(data), cipher.final()]);
     
-    return Buffer.concat([iv, authTag, encrypted]);
+    return Buffer.concat([iv, encrypted]);
   }
 
   // Validation helper methods
