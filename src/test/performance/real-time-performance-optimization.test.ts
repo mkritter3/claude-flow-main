@@ -175,7 +175,7 @@ describe('Solution 4: Real-time Performance Optimization System', () => {
 
     it('should provide heuristic fallback when AI is unavailable', async () => {
       // Create engine without AI
-      const fallbackEngine = new SelfOptimizingMetricsEngine();
+      const fallbackEngine = new SelfOptimizingMetricsEngine(undefined, undefined, true);
       const optimizedMetrics = await fallbackEngine.collectAndOptimize();
 
       expect(optimizedMetrics).toBeDefined();
