@@ -18,15 +18,15 @@ describe('Self-Evolving Architecture System', () => {
   beforeEach(() => {
     // Create mock Claude client
     mockClaude = {
-      analyze: jest.fn(),
-      generate: jest.fn()
+      analyze: vi.fn(),
+      generate: vi.fn()
     };
 
     // Create mock thinking engine
     mockThinking = {
-      analyze: jest.fn(),
-      generateCode: jest.fn(),
-      predict: jest.fn()
+      analyze: vi.fn(),
+      generateCode: vi.fn(),
+      predict: vi.fn()
     };
 
     architecture = new SelfEvolvingArchitecture(mockClaude, mockThinking);
