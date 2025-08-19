@@ -449,7 +449,7 @@ export class AccessDecisionEngine {
     if (analysis.compliance_validation) {
       const recentUpdates = await this.getRecentRegulatoryUpdates();
       analysis.compliance_validation.remediation_required = [
-        ...analysis.compliance_validation.remediation_required,
+        ...(analysis.compliance_validation.remediation_required || []),
         ...recentUpdates.new_requirements
       ];
     }
